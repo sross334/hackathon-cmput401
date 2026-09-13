@@ -3,12 +3,13 @@ from django.db import models
 
 class JobApplication(models.Model):
     class Status(models.TextChoices):
-        SAVED = 'SAVED', 'Saved'
-        APPLIED = 'APPLIED', 'Applied'
-        INTERVIEW = 'INTERVIEW', 'Interview'
-        OFFER = 'OFFER', 'Offer'
-        REJECTED = 'REJECTED', 'Rejected'
-        WITHDRAWN = 'WITHDRAWN', 'Withdrawn'
+        WISHLIST = "wishlist", "Wishlist"
+        APPLIED = "applied", "Applied"
+        PHONE_SCREEN = "phone_screen", "Phone Screen"
+        INTERVIEW = "interview", "Interview"
+        OFFER = "offer", "Offer"
+        REJECTED = "rejected", "Rejected"
+        WITHDRAWN = "withdrawn", "Withdrawn"
 
     id = models.CharField(max_length=50, primary_key=True)
     company = models.CharField(
@@ -47,6 +48,8 @@ class Communication(models.Model):
         INTERVIEW = "interview", "Interview"
         OFFER_RECEIVED = "offer_received", "Offer Received"
         REJECTION = "rejection", "Rejection"
+        FOLLOW_UP = "follow_up", "Follow-up Sent"
+        NOTE = "note", "Note"
 
     id = models.CharField(max_length=50, primary_key=True)
 
