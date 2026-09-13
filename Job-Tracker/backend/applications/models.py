@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 
 class JobApplication(models.Model):
     class Status(models.TextChoices):
@@ -11,56 +10,103 @@ class JobApplication(models.Model):
         REJECTED = 'REJECTED', 'Rejected'
         WITHDRAWN = 'WITHDRAWN', 'Withdrawn'
 
-    company_name = models.CharField(max_length=200)
-    position = models.CharField(max_length=200)
-
-    job_url = models.URLField(blank=True)
-    location = models.CharField(max_length=200, blank=True)
+    id = models.CharField(max_length=50, primary_key=True)
+    company = models.CharField(
+        max_length=255,
+        blank=True,
+        default="",
+    )
+    position = models.CharField(max_length=255)
+    url = models.URLField(blank=True)
+    location = models.CharField(max_length=255, blank=True)
+    salary = models.CharField(max_length=100, blank=True)
 
     date_applied = models.DateField(null=True, blank=True)
 
     status = models.CharField(
-        max_length=20,
+        max_length=30,
         choices=Status.choices,
-        default=Status.SAVED
+        default=Status.APPLIED,
     )
 
-    salary = models.CharField(max_length=100, blank=True)
     notes = models.TextField(blank=True)
-
-    follow_up_date = models.DateField(null=True, blank=True)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    reminder_date = models.DateField(null=True, blank=True)
+    reminder_note = models.TextField(blank=True)
+    logo_color = models.CharField(max_length=20, blank=True)
+    resume_customization = models.TextField(blank=True)
+    tags = models.JSONField(default=list, blank=True)
 
     def __str__(self):
-        return f"{self.company_name} - {self.position}"
+        return f"{self.company} - {self.position}"
+
 
 class Communication(models.Model):
-
     class CommunicationType(models.TextChoices):
-        EMAIL = 'EMAIL', 'Email'
-        PHONE = 'PHONE', 'Phone'
-        INTERVIEW = 'INTERVIEW', 'Interview'
-        LINKEDIN = 'LINKEDIN', 'LinkedIn'
-        OTHER = 'OTHER', 'Other'
+        EMAIL = "email", "Email"
+        CALL = "call", "Call"
+        INTERVIEW = "interview", "Interview"
+        OFFER_RECEIVED = "offer_received", "Offer Received"
+        REJECTION = "rejection", "Rejection"
+
+    id = models.CharField(max_length=50, primary_key=True)
 
     application = models.ForeignKey(
         JobApplication,
         on_delete=models.CASCADE,
-        related_name='communications'
+        related_name="communications",
     )
 
     communication_type = models.CharField(
-        max_length=20,
-        choices=CommunicationType.choices
+        max_length=30,
+        choices=CommunicationType.choices,
     )
 
-    date = models.DateTimeField()
-    subject = models.CharField(max_length=200, blank=True)
-    content = models.TextField()
-
-    created_at = models.DateTimeField(auto_now_add=True)
+    date = models.DateField()
+    subject = models.CharField(max_length=255, blank=True)
+    body = models.TextField()
 
     def __str__(self):
         return f"{self.application} - {self.communication_type}"
+
+
+class Resume(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=50, blank=True)
+    location = models.CharField(max_length=255, blank=True)
+    linkedin = models.URLField(blank=True)
+    github = models.URLField(blank=True)
+    website = models.URLField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class ResumeSection(models.Model):
+    class SectionType(models.TextChoices):
+        SUMMARY = "summary", "Summary"
+        EXPERIENCE = "experience", "Experience"
+        EDUCATION = "education", "Education"
+        SKILLS = "skills", "Skills"
+        PROJECTS = "projects", "Projects"
+
+    id = models.CharField(max_length=50, primary_key=True)
+
+    resume = models.ForeignKey(
+        Resume,
+        on_delete=models.CASCADE,
+        related_name="sections",
+    )
+
+    title = models.CharField(max_length=255)
+
+    type = models.CharField(
+        max_length=30,
+        choices=SectionType.choices,
+    )
+
+    content = models.TextField()
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order"]
