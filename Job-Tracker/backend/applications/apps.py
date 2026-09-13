@@ -2,4 +2,5 @@ from django.apps import AppConfig
 
 
 class ApplicationsConfig(AppConfig):
-    name = 'applications'
+    default_auto_field = "django.db.models.AutoField"
+    name = "applications"
