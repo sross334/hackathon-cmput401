@@ -1,7 +1,39 @@
-import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+import path from 'node:path'
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
+export default defineConfig(({ mode }) => {
+  const emitSourcemaps = mode === 'development'
+
+  return {
+    base: '/',
+
+    build: {
+      sourcemap: emitSourcemaps ? 'inline' : false,
+      minify: !emitSourcemaps,
+    },
+
+    plugins: [
+      react(),
+      tailwindcss(),
+    ],
+
+    resolve: {
+      alias: {
+        '@': path.resolve(process.cwd(), './src'),
+      },
+    },
+
+    server: {
+      host: '0.0.0.0',
+      port: 5173,
+      strictPort: false,
+    },
+
+    preview: {
+      host: '0.0.0.0',
+      port: 5173,
+    },
+  }
 })
