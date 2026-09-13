@@ -103,6 +103,7 @@ function formatDate(d) {
 }
 
 function daysAgo(d) {
+  if (!d) return "Not applied";
   const diff =
     Date.now() - new Date(d + "T00:00:00").getTime();
 
@@ -270,17 +271,16 @@ function Drawer({ app, onClose }) {
               <button
                 key={t}
                 onClick={() => setTab(t)}
-                className={`px-4 py-1.5 rounded-full text-xs font-medium transition-colors capitalize ${
-                  tab === t
+                className={`px-4 py-1.5 rounded-full text-xs font-medium transition-colors capitalize ${tab === t
                     ? "bg-[var(--primary)] text-white"
                     : "text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--secondary)]"
-                }`}
+                  }`}
               >
                 {t === "comms"
                   ? `Comms (${app.communications.length})`
                   : t === "resume"
-                  ? "Resume"
-                  : "Details"}
+                    ? "Resume"
+                    : "Details"}
               </button>
             ))}
           </div>
@@ -1225,11 +1225,10 @@ export default function Applications() {
               <button
                 key={m}
                 onClick={() => setViewMode(m)}
-                className={`px-4 py-2 text-xs font-medium transition-colors capitalize ${
-                  viewMode === m
+                className={`px-4 py-2 text-xs font-medium transition-colors capitalize ${viewMode === m
                     ? "bg-[var(--primary)] text-white"
                     : "text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--secondary)]"
-                }`}
+                  }`}
               >
                 {m}
               </button>
