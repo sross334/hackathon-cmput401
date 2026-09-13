@@ -7,12 +7,12 @@ from .models import JobApplication
 @admin.register(JobApplication)
 class JobApplicationAdmin(admin.ModelAdmin):
     list_display = (
-        'company_name',
+        'company',
         'position',
         'status',
         'date_applied',
-        'follow_up_date',
+        'reminder_date',
     )
 
     list_filter = ('status',)
-    search_fields = ('company_name', 'position')
+    search_fields = ('company', 'position')
