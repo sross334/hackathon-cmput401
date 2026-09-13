@@ -93,12 +93,12 @@ export default function Dashboard({ onNavigate }) {
 
     const responseRate = applications.length
       ? Math.round(
-          (applications.filter(
-            (application) => application.communications.length > 0
-          ).length /
-            applications.length) *
-            100
-        )
+        (applications.filter(
+          (application) => application.communications.length > 0
+        ).length /
+          applications.length) *
+        100
+      )
       : 0;
 
     return {
@@ -330,8 +330,8 @@ export default function Dashboard({ onNavigate }) {
                   days <= 1
                     ? "text-rose-300"
                     : days <= 3
-                    ? "text-amber-300"
-                    : "text-[var(--muted-foreground)]";
+                      ? "text-amber-300"
+                      : "text-[var(--muted-foreground)]";
 
                 return (
                   <div
@@ -354,8 +354,8 @@ export default function Dashboard({ onNavigate }) {
                         {days === 0
                           ? "Today"
                           : days === 1
-                          ? "Tomorrow"
-                          : `${days}d`}
+                            ? "Tomorrow"
+                            : `${days}d`}
                       </span>
                     </div>
 

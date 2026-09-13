@@ -190,11 +190,10 @@ export default function Communications() {
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setTypeFilter("all")}
-            className={`chip transition-all text-[11px] ${
-              typeFilter === "all"
+            className={`chip transition-all text-[11px] ${typeFilter === "all"
                 ? "bg-[var(--primary)] text-white border border-[var(--primary)]"
                 : "bg-[var(--secondary)] text-[var(--muted-foreground)] border border-[var(--border)] hover:border-purple-500/50"
-            }`}
+              }`}
           >
             All ({allComms.length})
           </button>
@@ -208,11 +207,10 @@ export default function Communications() {
               <button
                 key={type}
                 onClick={() => setTypeFilter(type)}
-                className={`chip transition-all text-[11px] gap-1.5 ${
-                  typeFilter === type
+                className={`chip transition-all text-[11px] gap-1.5 ${typeFilter === type
                     ? `${meta.bg} ${meta.color} ${meta.border}`
                     : "bg-[var(--secondary)] text-[var(--muted-foreground)] border border-[var(--border)] hover:border-purple-500/50"
-                }`}
+                  }`}
               >
                 <span>{meta.icon}</span>
                 {meta.label} ({count})
