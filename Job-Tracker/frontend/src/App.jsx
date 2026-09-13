@@ -90,8 +90,8 @@ function Sidebar({
       >
         <div className="px-5 py-6 border-b border-[var(--border)]">
           <div>
-            <p className="font-display font-700 text-[var(--foreground)] leading-none">
-              PleaseHireMe!
+            <p className="font-display text-lg font-bold text-[var(--foreground)] leading-none">
+              Jobpify
             </p>
             <p className="text-[10px] text-[var(--muted-foreground)] mt-0.5">
               your career dashboard
@@ -209,7 +209,7 @@ function Shell() {
             ☰
           </button>
 
-          <span className="font-display font-700 text-sm">PleaseHireMe!</span>
+          <span className="font-display text-base font-bold">Jobpify</span>
 
           <div className="w-9" />
         </div>
