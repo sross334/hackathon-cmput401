@@ -43,7 +43,7 @@ const STATUS_META = {
     dot: "#fcd34d",
   },
   offer: {
-    label: "Offer 🎉",
+    label: "Offer",
     color: "text-emerald-300",
     bg: "bg-emerald-900/40",
     border: "border-emerald-700/40",
@@ -69,7 +69,7 @@ const COMM_TYPES = [
   { value: "email", label: "Email", icon: "✉" },
   { value: "call", label: "Call", icon: "📞" },
   { value: "interview", label: "Interview", icon: "🎙" },
-  { value: "offer_received", label: "Offer received", icon: "🎉" },
+  { value: "offer_received", label: "Offer received", icon: "+" },
   { value: "rejection", label: "Rejection", icon: "✕" },
   { value: "follow_up", label: "Follow-up sent", icon: "↩" },
   { value: "note", label: "Note", icon: "✏" },
@@ -410,7 +410,7 @@ function Drawer({ app, onClose }) {
                   {app.reminderDate && (
                     <div className="p-4 rounded-xl bg-amber-900/20 border border-amber-700/30">
                       <p className="text-xs font-medium text-amber-400 uppercase tracking-wider mb-1">
-                        ⏰ Reminder
+                        Reminder
                       </p>
 
                       <p className="text-sm text-[var(--foreground)]">
@@ -1120,7 +1120,6 @@ function KanbanColumn({ status, apps, onSelect }) {
                     title="Has reminder"
                     className="text-amber-400 text-[11px]"
                   >
-                    ⏰
                   </span>
                 )}
 
@@ -1327,7 +1326,6 @@ export default function Applications() {
 
                     {app.reminderDate && (
                       <span className="text-amber-400 text-xs">
-                        ⏰
                       </span>
                     )}
 

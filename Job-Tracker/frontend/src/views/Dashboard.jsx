@@ -50,7 +50,7 @@ const COMM_TYPE_META = {
   email: { label: "Email", icon: "✉" },
   call: { label: "Call", icon: "📞" },
   interview: { label: "Interview", icon: "🎙" },
-  offer_received: { label: "Offer received", icon: "🎉" },
+  offer_received: { label: "Offer received", icon: "+" },
   rejection: { label: "Rejected", icon: "✕" },
   follow_up: { label: "Follow-up", icon: "↩" },
   note: { label: "Note", icon: "✏" },
@@ -194,12 +194,12 @@ export default function Dashboard({ onNavigate }) {
         <h1 className="font-display text-4xl md:text-5xl font-700">
           Good morning,
           <br />
-          <span className="text-[var(--primary)]">Test Guy.</span>
+          <span className="text-[var(--primary)]">Abel Tesfaye.</span>
         </h1>
 
         {stats.offers > 0 && (
           <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-900/40 border border-emerald-700/40 text-emerald-300 text-sm font-medium">
-            🎉 You have {stats.offers} active offer
+            You have {stats.offers} active offer
             {stats.offers > 1 ? "s" : ""}! Don't forget to respond.
           </div>
         )}
@@ -256,9 +256,17 @@ export default function Dashboard({ onNavigate }) {
       <div className="grid lg:grid-cols-3 gap-6 mb-6">
         {/* Funnel */}
         <div className="lg:col-span-2 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6">
-          <h2 className="font-semibold mb-5">Application Funnel</h2>
+          <div className="flex items-end justify-between gap-4 mb-5">
+            <div>
+              <h2 className="font-semibold">Application Funnel</h2>
+              <p className="text-xs text-[var(--muted-foreground)] mt-1">
+                {applications.length} total application{applications.length === 1 ? "" : "s"}
+              </p>
+            </div>
+            <span className="text-xs text-[var(--muted-foreground)]">by stage</span>
+          </div>
 
-          <div className="flex flex-col gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {funnelStatuses.map((status) => {
               const count = statusCounts[status] || 0;
               const percentage = applications.length
@@ -268,26 +276,28 @@ export default function Dashboard({ onNavigate }) {
               const meta = STATUS_META[status];
 
               return (
-                <div key={status} className="flex items-center gap-3">
-                  <span
-                    className={`text-xs w-24 shrink-0 font-medium ${meta.color}`}
-                  >
-                    {meta.label}
-                  </span>
-
-                  <div className="flex-1 h-2 bg-[var(--secondary)] rounded-full overflow-hidden">
-                    <div
-                      className={`h-full rounded-full transition-all duration-500 ${meta.bg.replace(
-                        "/40",
-                        ""
-                      )}`}
-                      style={{ width: `${percentage}%` }}
+                <div
+                  key={status}
+                  className="min-h-36 min-w-0 flex flex-col justify-between gap-6 p-5 rounded-2xl bg-[var(--secondary)]/45 border border-[var(--border)] last:lg:col-span-3"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <p className={`text-base font-semibold truncate ${meta.color}`}>
+                      {meta.label}
+                    </p>
+                    <span
+                      className="w-2.5 h-2.5 rounded-full shrink-0"
+                      style={{ backgroundColor: meta.dot }}
                     />
                   </div>
 
-                  <span className="text-sm font-semibold w-6 text-right text-[var(--foreground)]">
-                    {count}
-                  </span>
+                  <div className="flex items-end justify-between gap-2">
+                    <p className="text-[10px] text-[var(--muted-foreground)]">
+                      {Math.round(percentage)}% of total
+                    </p>
+                    <span className="text-4xl leading-none font-bold text-[var(--foreground)]">
+                      {count}
+                    </span>
+                  </div>
                 </div>
               );
             })}

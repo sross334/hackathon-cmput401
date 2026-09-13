@@ -35,7 +35,7 @@ const COMM_META = {
   },
   offer_received: {
     label: "Offer received",
-    icon: "🎉",
+    icon: "+",
     color: "text-emerald-300",
     bg: "bg-emerald-900/30",
     border: "border-emerald-700/40",

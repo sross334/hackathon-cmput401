@@ -13,6 +13,8 @@ const NAV_ITEMS = [
   { view: "communications", label: "Activity Log", icon: "◎" },
 ];
 
+const TODAY = Date.now();
+
 /* ─── Theme hook ─────────────────────────────────────────── */
 function useTheme() {
   const [theme, setThemeState] = useState(() => {
@@ -51,9 +53,10 @@ function Sidebar({
 
       const diff =
         new Date(`${application.reminderDate}T00:00:00`).getTime() -
-        Date.now();
+        TODAY;
 
-      return Math.ceil(diff / 86400000) <= 3;
+      const days = Math.ceil(diff / 86400000);
+      return days >= 0 && days <= 3;
     }).length;
   }, [applications]);
 
@@ -85,21 +88,14 @@ function Sidebar({
           md:translate-x-0 md:relative md:z-auto
         `}
       >
-        {/* Logo */}
         <div className="px-5 py-6 border-b border-[var(--border)]">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-[var(--primary)] flex items-center justify-center text-white font-bold text-sm">
-              JT
-            </div>
-
-            <div>
-              <p className="font-display font-700 text-[var(--foreground)] leading-none">
-                JobTrackr
-              </p>
-              <p className="text-[10px] text-[var(--muted-foreground)] mt-0.5">
-                your career dashboard
-              </p>
-            </div>
+          <div>
+            <p className="font-display font-700 text-[var(--foreground)] leading-none">
+              PleaseHireMe!
+            </p>
+            <p className="text-[10px] text-[var(--muted-foreground)] mt-0.5">
+              your career dashboard
+            </p>
           </div>
         </div>
 
@@ -111,13 +107,13 @@ function Sidebar({
 
           {offers > 0 && (
             <span className="chip bg-emerald-900/40 border border-emerald-700/40 text-emerald-300 text-[10px]">
-              {offers} offer{offers > 1 ? "s" : ""} 🎉
+              {offers} offer{offers > 1 ? "s" : ""}
             </span>
           )}
 
           {reminders > 0 && (
             <span className="chip bg-amber-900/40 border border-amber-700/40 text-amber-400 text-[10px]">
-              {reminders} reminder{reminders > 1 ? "s" : ""} ⏰
+              {reminders} reminder{reminders > 1 ? "s" : ""}
             </span>
           )}
         </div>
@@ -133,10 +129,9 @@ function Sidebar({
               }}
               className={`
                 w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-left
-                ${
-                  view === item.view
-                    ? "bg-[var(--primary)]/15 text-[var(--primary)] border border-[var(--primary)]/20"
-                    : "text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--secondary)]"
+                ${view === item.view
+                  ? "bg-[var(--primary)]/15 text-[var(--primary)] border border-[var(--primary)]/20"
+                  : "text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--secondary)]"
                 }
               `}
             >
@@ -157,11 +152,11 @@ function Sidebar({
         <div className="px-4 py-4 border-t border-[var(--border)]">
           <div className="flex items-center gap-3 px-2">
             <div className="w-8 h-8 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-sm font-bold shrink-0">
-              JR
+              AT
             </div>
 
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium truncate">Test Guy</p>
+              <p className="text-sm font-medium truncate">Abel Tesfaye</p>
               <p className="text-[11px] text-[var(--muted-foreground)] truncate">
                 testguy@gmail.com
               </p>
@@ -214,7 +209,7 @@ function Shell() {
             ☰
           </button>
 
-          <span className="font-display font-700 text-sm">JobTrackr</span>
+          <span className="font-display font-700 text-sm">PleaseHireMe!</span>
 
           <div className="w-9" />
         </div>
